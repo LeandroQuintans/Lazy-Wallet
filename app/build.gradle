@@ -42,6 +42,9 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
     implementation files('libs/CostInCoins_v1.0.jar')
 
+    // Gson
+    implementation 'com.google.code.gson:gson:2.8.6'
+
     // Room
     implementation "androidx.room:room-runtime:$room_version"
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
