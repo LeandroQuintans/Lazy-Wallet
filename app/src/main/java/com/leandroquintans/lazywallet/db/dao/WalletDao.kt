@@ -1,12 +1,10 @@
 package com.leandroquintans.lazywallet.db.dao
 
 import androidx.lifecycle.LiveData
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.Query
-import androidx.room.Update
+import androidx.room.*
 import com.leandroquintans.lazywallet.db.entities.WalletEntity
 
+@Dao
 interface WalletDao {
     @Insert
     fun insert(wallet: WalletEntity)
