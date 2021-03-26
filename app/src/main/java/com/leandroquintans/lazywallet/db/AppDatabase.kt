@@ -4,6 +4,9 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
+import com.leandroquintans.lazywallet.db.converters.CurrencyConverter
+import com.leandroquintans.lazywallet.db.converters.WalletConverter
 import com.leandroquintans.lazywallet.db.dao.WalletDao
 import com.leandroquintans.lazywallet.db.entities.WalletEntity
 
@@ -12,6 +15,7 @@ import com.leandroquintans.lazywallet.db.entities.WalletEntity
     version = 1,
     exportSchema = false
 )
+@TypeConverters(WalletConverter::class, CurrencyConverter::class)
 abstract class AppDatabase : RoomDatabase() {
     abstract val walletDao: WalletDao
 
