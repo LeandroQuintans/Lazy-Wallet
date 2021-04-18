@@ -12,7 +12,7 @@ import com.leandroquintans.lazywallet.db.entities.WalletEntity
 
 @Database(
     entities = [WalletEntity::class],
-    version = 1,
+    version = 2,
     exportSchema = false
 )
 @TypeConverters(WalletConverter::class, CurrencyConverter::class)

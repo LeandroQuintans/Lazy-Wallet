@@ -16,8 +16,11 @@ data class WalletEntity(
     @ColumnInfo(name = "currency")
     val currency: Currency = Currency.AMERICAN_DOLLAR,
 
-    //@ColumnInfo(name = "user_wallet")
-    //val userWallet: Boolean = false
+    @ColumnInfo(name = "name")
+    val name: String = "",
+
+//@ColumnInfo(name = "user_wallet")
+//val userWallet: Boolean = false
 ) {
     enum class Currency(val verboseName: String, val format: String, val currencyValues: Array<String>) {
         AMERICAN_DOLLAR(

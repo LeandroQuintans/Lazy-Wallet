@@ -54,6 +54,7 @@ class AppDatabaseTest {
         assertEquals(1, walletEntities.value?.size)
         assertEquals(walletEntity.wallet, walletEntities.value?.get(0)?.wallet)
         assertEquals(walletEntity.currency, walletEntities.value?.get(0)?.currency)
+        assertEquals(walletEntity.name, walletEntities.value?.get(0)?.name)
     }
 
 }
