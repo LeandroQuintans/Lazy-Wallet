@@ -1,4 +1,4 @@
-package com.leandroquintans.lazywallet.activities
+package com.leandroquintans.lazywallet.navigation
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
