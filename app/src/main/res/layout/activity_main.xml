@@ -9,7 +9,7 @@
         android:orientation="vertical"
         tools:context=".navigation.MainActivity">
 
-        <fragment
+        <androidx.fragment.app.FragmentContainerView
             android:id="@+id/walletFragment"
             android:name="com.leandroquintans.lazywallet.navigation.WalletFragment"
             android:layout_width="match_parent"
