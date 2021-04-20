@@ -4,6 +4,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import coincost.Wallet
+import java.math.BigDecimal
 
 @Entity(tableName = "wallet_table")
 data class WalletEntity(
@@ -22,10 +23,14 @@ data class WalletEntity(
 //@ColumnInfo(name = "user_wallet")
 //val userWallet: Boolean = false
 ) {
-    enum class Currency(val verboseName: String, val format: String, val currencyValues: Array<String>) {
+    enum class Currency(
+                    val verboseName: String,
+                    val format: String,
+                    val currencyValues: Array<String>
+            ) {
         AMERICAN_DOLLAR(
                 "American Dollar ($)",
-                "%.2f",
+                "%.2f $",
                 arrayOf(
                         "0.01",
                         "0.05",
@@ -43,7 +48,7 @@ data class WalletEntity(
         ),
         BRITISH_POUND(
                 "British Pound (£)",
-                "%.2f",
+                "%.2f £",
                 arrayOf(
                         "0.01",
                         "0.02",
@@ -61,7 +66,7 @@ data class WalletEntity(
         ),
         EURO(
                 "Euro (€)",
-                "%.2f",
+                "%.2f €",
                 arrayOf(
                         "0.01",
                         "0.02",
@@ -82,7 +87,7 @@ data class WalletEntity(
         ),
         YEN(
                 "Yen (¥)",
-                "%d",
+                "%d ¥",
                 arrayOf(
                         "1",
                         "5",
@@ -95,6 +100,8 @@ data class WalletEntity(
                         "5000",
                         "10000"
                 )
-        ),
+        );
+
+        fun formatWalletAmount(amount: BigDecimal?): String = String.format(format, amount.toString())
     }
 }

@@ -8,4 +8,5 @@
     <string name="paymentButtonText">Make a Payment</string>
     <string name="noWalletFoundCreateButton">Create wallet</string>
     <string name="noWalletFoundText">You don\'t have any wallets</string>
+    <string name="costLabelText">Cost:</string>
 </resources>

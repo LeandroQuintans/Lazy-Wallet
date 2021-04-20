@@ -19,11 +19,17 @@
         <action
             android:id="@+id/action_walletFragment_to_paymentListViewFragment"
             app:destination="@id/paymentListViewFragment" />
+        <action
+            android:id="@+id/action_walletFragment_to_walletCurrencyChooseFragmentForced"
+            app:destination="@id/walletCurrencyChooseFragment"
+            app:popUpTo="@id/walletFragment"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/walletCurrencyChooseFragment"
         android:name="com.leandroquintans.lazywallet.navigation.WalletCurrencyChooseFragment"
-        android:label="WalletCurrencyChooseFragment" >
+        android:label="WalletCurrencyChooseFragment"
+        tools:layout="@layout/fragment_wallet_currency_choose">
         <action
             android:id="@+id/action_walletCurrencyChooseFragment_to_walletFragment"
             app:destination="@id/walletFragment" />
@@ -43,9 +49,6 @@
         android:label="fragment_payment_list_view"
         tools:layout="@layout/fragment_payment_list_view" >
         <action
-            android:id="@+id/action_paymentListViewFragment_to_walletFragment"
-            app:destination="@id/walletFragment" />
-        <action
             android:id="@+id/action_paymentListViewFragment_to_paymentCheckFragment"
             app:destination="@id/paymentCheckFragment" />
     </fragment>
@@ -54,9 +57,6 @@
         android:name="com.leandroquintans.lazywallet.navigation.PaymentCheckFragment"
         android:label="fragment_payment_check"
         tools:layout="@layout/fragment_payment_check" >
-        <action
-            android:id="@+id/action_paymentCheckFragment_to_paymentListViewFragment"
-            app:destination="@id/paymentListViewFragment" />
         <action
             android:id="@+id/action_paymentCheckFragment_to_walletFragment"
             app:destination="@id/walletFragment" />
