@@ -7,15 +7,18 @@ import com.leandroquintans.lazywallet.db.entities.WalletEntity
 @Dao
 interface WalletDao {
     @Insert
-    fun insert(wallet: WalletEntity)
+    suspend fun insert(wallet: WalletEntity)
 
     @Update
-    fun update(wallet: WalletEntity)
+    suspend fun update(wallet: WalletEntity)
 
     //@Query("SELECT * FROM wallet_table WHERE user_wallet = 1")
-    @Query("SELECT * FROM wallet_table ORDER BY currency")
-    fun getAllUserWallets(): LiveData<List<WalletEntity>>
+    //@Query("SELECT * FROM wallet_table ORDER BY currency")
+    //suspend fun getAllUserWallets(): LiveData<List<WalletEntity>>
+
+    @Query("SELECT * FROM wallet_table LIMIT 1")
+    suspend fun getWallet(): WalletEntity?
 
     @Delete
-    fun deleteWallets(vararg wallets: WalletEntity)
+    suspend fun deleteWallets(vararg wallets: WalletEntity)
 }

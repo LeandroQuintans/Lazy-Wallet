@@ -16,8 +16,8 @@ data class WalletEntity(
     @ColumnInfo(name = "currency")
     val currency: Currency = Currency.AMERICAN_DOLLAR,
 
-    @ColumnInfo(name = "name")
-    val name: String = "",
+    //@ColumnInfo(name = "name")
+    //val name: String = "",
 
 //@ColumnInfo(name = "user_wallet")
 //val userWallet: Boolean = false

@@ -10,6 +10,8 @@ import com.leandroquintans.lazywallet.db.AppDatabase
 import com.leandroquintans.lazywallet.db.dao.WalletDao
 import com.leandroquintans.lazywallet.db.entities.WalletEntity
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.runBlocking
 import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Before
@@ -44,17 +46,18 @@ class AppDatabaseTest {
 
     @Test
     @Throws(Exception::class)
-    fun insertAndGetAllWallets() {
+    fun insertAndGetWallet() {
         val walletEntity = WalletEntity()
-        walletDao.insert(walletEntity)
-        val walletEntities = walletDao.getAllUserWallets()
+        var walletEntityDB : WalletEntity?
+        runBlocking {
+            walletDao.insert(walletEntity)
+            walletEntityDB = walletDao.getWallet()
+        }
 
-        walletEntities.observeForever { }
-
-        assertEquals(1, walletEntities.value?.size)
-        assertEquals(walletEntity.wallet, walletEntities.value?.get(0)?.wallet)
-        assertEquals(walletEntity.currency, walletEntities.value?.get(0)?.currency)
-        assertEquals(walletEntity.name, walletEntities.value?.get(0)?.name)
+        //assertEquals(1, walletEntity.value?.size)
+        assertEquals(walletEntity.wallet, walletEntityDB?.wallet)
+        assertEquals(walletEntity.currency, walletEntityDB?.currency)
+        //assertEquals(walletEntity.name, walletEntity.value?.name)
     }
 
 }
