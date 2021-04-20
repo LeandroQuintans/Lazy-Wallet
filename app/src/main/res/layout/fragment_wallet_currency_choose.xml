@@ -3,7 +3,12 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".navigation.WalletFragment">
+    tools:context=".navigation.WalletCurrencyChooseFragment">
+    <data>
+        <variable
+            name="walletViewModel"
+            type="com.leandroquintans.lazywallet.viewmodels.WalletViewModel" />
+    </data>
 
     <LinearLayout
         android:id="@+id/walletLinear"
