@@ -9,4 +9,5 @@
     <string name="noWalletFoundCreateButton">Create wallet</string>
     <string name="noWalletFoundText">You don\'t have any wallets</string>
     <string name="costLabelText">Cost:</string>
+    <string name="chooseCurrencyText">Choose your currency:</string>
 </resources>

@@ -11,10 +11,19 @@
     </data>
 
     <LinearLayout
-        android:id="@+id/walletLinear"
+        android:id="@+id/currencyChooseLinear"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/chooseCurrencyLabelText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/chooseCurrencyText"
+            android:textSize="20sp"
+            android:layout_marginBottom="16dp"
+            android:layout_marginLeft="16dp" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/currency_list"
