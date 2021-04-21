@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.leandroquintans.lazywallet.R
 import com.leandroquintans.lazywallet.databinding.FragmentWalletBinding
 import com.leandroquintans.lazywallet.db.AppDatabase
@@ -33,6 +34,9 @@ class WalletFragment : Fragment() {
 
         binding.lifecycleOwner = this
         binding.walletViewModel = viewModel
+
+        if (viewModel.walletEntity.value == null)
+            this.findNavController().navigate(R.id.action_walletFragment_to_walletCurrencyChooseFragmentForced)
 
         return binding.root
     }
