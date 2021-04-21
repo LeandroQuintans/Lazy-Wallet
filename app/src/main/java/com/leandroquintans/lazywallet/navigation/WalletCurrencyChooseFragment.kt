@@ -5,24 +5,38 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
-import com.leandroquintans.lazywallet.R
+import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.NavController
+import androidx.navigation.fragment.findNavController
 import com.leandroquintans.lazywallet.adapters.WalletCurrencyAdapter
-import com.leandroquintans.lazywallet.databinding.FragmentWalletBinding
 import com.leandroquintans.lazywallet.databinding.FragmentWalletCurrencyChooseBinding
+import com.leandroquintans.lazywallet.db.AppDatabase
+import com.leandroquintans.lazywallet.viewmodels.WalletCurrencyChooseViewModel
+import com.leandroquintans.lazywallet.viewmodels.WalletCurrencyChooseViewModelFactory
 
 
 class WalletCurrencyChooseFragment : Fragment() {
+    private lateinit var binding: FragmentWalletCurrencyChooseBinding
+    private lateinit var viewModel: WalletCurrencyChooseViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val binding = DataBindingUtil.inflate<FragmentWalletCurrencyChooseBinding>(inflater,
-            R.layout.fragment_wallet_currency_choose,container,false)
+        binding = FragmentWalletCurrencyChooseBinding.inflate(inflater, container, false)
 
-        val adapter = WalletCurrencyAdapter()
+        val application = requireNotNull(this.activity).application
+        val dataSource = AppDatabase.getInstance(application).walletDao
+        val viewModelFactory = WalletCurrencyChooseViewModelFactory(dataSource)
+
+        viewModel = ViewModelProvider(this, viewModelFactory).get(WalletCurrencyChooseViewModel::class.java)
+
+        binding.lifecycleOwner = this
+        binding.walletCurrencyChooseViewModel = viewModel
+
+        val adapter = WalletCurrencyAdapter(viewModel)
         binding.currencyList.adapter = adapter
+
         return binding.root
     }
 }

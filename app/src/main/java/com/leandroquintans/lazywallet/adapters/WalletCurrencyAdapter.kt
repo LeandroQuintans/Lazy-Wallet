@@ -7,8 +7,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.leandroquintans.lazywallet.ButtonItemViewHolder
 import com.leandroquintans.lazywallet.R
 import com.leandroquintans.lazywallet.db.entities.WalletEntity
+import com.leandroquintans.lazywallet.viewmodels.WalletCurrencyChooseViewModel
 
-class WalletCurrencyAdapter: RecyclerView.Adapter<ButtonItemViewHolder>() {
+class WalletCurrencyAdapter(private val viewModel: WalletCurrencyChooseViewModel): RecyclerView.Adapter<ButtonItemViewHolder>() {
     var data = WalletEntity.Currency.values()
     set(value) {
         field = value
@@ -20,7 +21,9 @@ class WalletCurrencyAdapter: RecyclerView.Adapter<ButtonItemViewHolder>() {
     override fun onBindViewHolder(holder: ButtonItemViewHolder, position: Int) {
         val item = data[position]
         holder.button.text = item.verboseName
-        holder.button.setOnClickListener {  }
+        holder.button.setOnClickListener {
+            // TODO CREATE WALLETENTITY HERE
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ButtonItemViewHolder {

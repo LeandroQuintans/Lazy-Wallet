@@ -6,8 +6,8 @@
     tools:context=".navigation.WalletCurrencyChooseFragment">
     <data>
         <variable
-            name="walletViewModel"
-            type="com.leandroquintans.lazywallet.viewmodels.WalletViewModel" />
+            name="walletCurrencyChooseViewModel"
+            type="com.leandroquintans.lazywallet.viewmodels.WalletCurrencyChooseViewModel" />
     </data>
 
     <LinearLayout
