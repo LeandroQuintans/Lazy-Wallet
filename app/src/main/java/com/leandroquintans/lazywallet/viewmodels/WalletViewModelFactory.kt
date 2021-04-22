@@ -1,6 +1,5 @@
 package com.leandroquintans.lazywallet.viewmodels
 
-import android.app.Application
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.leandroquintans.lazywallet.db.dao.WalletDao
