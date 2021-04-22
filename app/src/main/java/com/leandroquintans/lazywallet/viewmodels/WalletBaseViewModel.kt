@@ -5,7 +5,7 @@ import com.leandroquintans.lazywallet.db.dao.WalletDao
 import com.leandroquintans.lazywallet.db.entities.WalletEntity
 import kotlinx.coroutines.launch
 
-open class WalletBaseViewModel(val database: WalletDao) : ViewModel() {
+abstract class WalletBaseViewModel(val database: WalletDao) : ViewModel() {
     protected var _walletEntity = MutableLiveData<WalletEntity?>()
     val walletEntity: LiveData<WalletEntity?>
         get() = _walletEntity
