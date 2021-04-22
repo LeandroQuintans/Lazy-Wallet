@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.leandroquintans.lazywallet.R
@@ -34,9 +35,15 @@ class WalletFragment : Fragment() {
         binding.lifecycleOwner = this
         binding.walletViewModel = viewModel
 
-        if (viewModel.walletEntity.value == null)
-            this.findNavController().navigate(R.id.action_walletFragment_to_walletCurrencyChooseFragmentForced)
+        setUpObservers()
 
         return binding.root
+    }
+
+    private fun setUpObservers() {
+        viewModel.walletEntity.observe(viewLifecycleOwner, Observer {
+            if (it == null)
+                this.findNavController().navigate(R.id.action_walletFragment_to_walletCurrencyChooseFragmentForced)
+        })
     }
 }
