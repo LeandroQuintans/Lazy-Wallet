@@ -1,5 +1,6 @@
 package com.leandroquintans.lazywallet.db.entities
 
+import android.util.Log
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
@@ -102,6 +103,6 @@ data class WalletEntity(
                 )
         );
 
-        fun formatWalletAmount(amount: BigDecimal?): String = String.format(format, amount.toString())
+        fun formatWalletAmount(amount: BigDecimal?): String = String.format(format, amount)
     }
 }
