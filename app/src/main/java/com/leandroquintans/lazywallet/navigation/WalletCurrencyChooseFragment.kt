@@ -34,7 +34,7 @@ class WalletCurrencyChooseFragment : Fragment() {
         binding.lifecycleOwner = this
         binding.walletCurrencyChooseViewModel = viewModel
 
-        val adapter = WalletCurrencyAdapter(viewModel)
+        val adapter = WalletCurrencyAdapter(viewModel, this.findNavController())
         binding.currencyList.adapter = adapter
 
         return binding.root
