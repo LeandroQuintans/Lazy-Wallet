@@ -1,6 +1,7 @@
 package com.leandroquintans.lazywallet.navigation
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -20,6 +21,7 @@ import com.leandroquintans.lazywallet.viewmodels.WalletCurrencyChooseViewModel
 class WalletCoinUpdateFragment : Fragment() {
     private lateinit var binding: FragmentWalletCoinUpdateBinding
     private lateinit var viewModel: WalletCoinUpdateViewModel
+    private lateinit var adapter: WalletCoinUpdateAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,9 +37,20 @@ class WalletCoinUpdateFragment : Fragment() {
 
         binding.lifecycleOwner = this
 
-        val adapter = WalletCoinUpdateAdapter(viewModel, viewLifecycleOwner)
+        Log.d("CoinUpdateFragment", "adapter attach start")
+        adapter = WalletCoinUpdateAdapter(viewModel.walletEntity?.value)
         binding.coinList.adapter = adapter
+        Log.d("CoinUpdateFragment", "adapter attach end")
+
+        setUpObservers()
 
         return binding.root
+    }
+
+    private fun setUpObservers() {
+        // WalletEntity LiveData observer
+        viewModel.walletEntity.observe(viewLifecycleOwner, {
+            adapter.walletEntity = it
+        })
     }
 }
