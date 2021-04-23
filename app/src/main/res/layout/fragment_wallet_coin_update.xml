@@ -1,14 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     tools:context=".navigation.WalletCoinUpdateFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
+        android:id="@+id/coinUpdateLinear"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:orientation="vertical">
 
-</FrameLayout>
+        <TextView
+            android:id="@+id/coinUpdateLabelText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/coinUpdateLabelText"
+            android:textSize="16sp"
+            android:layout_marginBottom="16dp"
+            android:layout_marginLeft="16dp" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/coinList"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+    </LinearLayout>
+</layout>
