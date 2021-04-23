@@ -1,6 +1,5 @@
 package com.leandroquintans.lazywallet.adapters
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Button
@@ -12,11 +11,11 @@ import com.leandroquintans.lazywallet.db.entities.WalletEntity
 import com.leandroquintans.lazywallet.viewmodels.WalletCurrencyChooseViewModel
 
 class WalletCurrencyAdapter(private val viewModel: WalletCurrencyChooseViewModel, private val navController: NavController): RecyclerView.Adapter<ButtonItemViewHolder>() {
-    var data = WalletEntity.Currency.values()
-    set(value) {
-        field = value
-        notifyDataSetChanged()
-    }
+    private var data = WalletEntity.Currency.values()
+        set(value) {
+            field = value
+            notifyDataSetChanged()
+        }
 
     override fun getItemCount() = data.size
 
