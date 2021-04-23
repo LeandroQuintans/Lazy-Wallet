@@ -18,36 +18,20 @@ import com.leandroquintans.lazywallet.viewmodels.WalletCurrencyChooseViewModel
 import java.math.BigDecimal
 
 class WalletCoinUpdateAdapter(walletEntity: WalletEntity?): RecyclerView.Adapter<CoinUpdateItemViewHolder>() {
-    private var wallet = mapOf<String, Int>(Pair("1.00", 1), Pair("0.50", 2), Pair("0.20", 3)).entries.toList()
-        set(value) {
-            field = value
-            notifyDataSetChanged()
-        }
     var walletEntity: WalletEntity? = walletEntity
         set(value) {
             field = value
             notifyDataSetChanged()
         }
 
-
-   //override fun getItemCount() = wallet.size
+    
    override fun getItemCount() = walletEntity?.currency?.currencyValues?.size ?: 0
 
     override fun onBindViewHolder(holder: CoinUpdateItemViewHolder, position: Int) {
-        /*val item = wallet[position]
-        Log.d("CoinUpdateAdapter", "item: $item")
-
-        holder.textView.text = item.key
-
-        val itemAmount = item.value.toString()
-        Log.d("CoinUpdateAdapter", "item amount: $itemAmount")
-
-        holder.editText.text = Editable.Factory.getInstance().newEditable(item.value.toString())*/
-
         val item = walletEntity?.currency?.currencyValues?.get(position)
-        Log.d("CoinUpdateAdapter", "item: $item")
+        //Log.d("CoinUpdateAdapter", "item: $item")
         val itemAmount = walletEntity?.wallet?.get(item?.toBigDecimal()).toString()
-        Log.d("CoinUpdateAdapter", "item amount: $itemAmount")
+        //Log.d("CoinUpdateAdapter", "item amount: $itemAmount")
         holder.textView.text = item
         holder.editText.text = Editable.Factory.getInstance().newEditable(
             walletEntity?.wallet?.get(item?.toBigDecimal()).toString()

@@ -23,10 +23,10 @@ class WalletCurrencyAdapter(private val viewModel: WalletCurrencyChooseViewModel
         val item = data[position]
         holder.button.text = item.verboseName
         holder.button.setOnClickListener {
-            //Log.i("WalletCurrencyAdapter", "click listener start")
+            //Log.d("WalletCurrencyAdapter", "click listener start")
             viewModel.changeCurrency(item)
             navController.navigate(R.id.action_walletCurrencyChooseFragment_to_walletFragmentForced)
-            //Log.i("WalletCurrencyAdapter", "click listener end")
+            //Log.d("WalletCurrencyAdapter", "click listener end")
         }
     }
 

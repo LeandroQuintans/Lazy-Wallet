@@ -37,10 +37,8 @@ class WalletCoinUpdateFragment : Fragment() {
 
         binding.lifecycleOwner = this
 
-        Log.d("CoinUpdateFragment", "adapter attach start")
         adapter = WalletCoinUpdateAdapter(viewModel.walletEntity?.value)
         binding.coinList.adapter = adapter
-        Log.d("CoinUpdateFragment", "adapter attach end")
 
         setUpObservers()
 
