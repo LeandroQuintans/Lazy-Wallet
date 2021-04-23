@@ -8,11 +8,18 @@ import kotlin.IllegalArgumentException
 class WalletBaseViewModelFactory(private val dataSource: WalletDao) : ViewModelProvider.Factory {
     @Suppress("unchecked_cast")
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(WalletViewModel::class.java)) {
-            return WalletViewModel(dataSource) as T
-        }
-        else if (modelClass.isAssignableFrom(WalletCurrencyChooseViewModel::class.java)) {
-            return WalletCurrencyChooseViewModel(dataSource) as T
+        when {
+            modelClass.isAssignableFrom(WalletViewModel::class.java) -> {
+                return WalletViewModel(dataSource) as T
+            }
+
+            modelClass.isAssignableFrom(WalletCurrencyChooseViewModel::class.java) -> {
+                return WalletCurrencyChooseViewModel(dataSource) as T
+            }
+
+            modelClass.isAssignableFrom(WalletCoinUpdateViewModel::class.java) -> {
+                return WalletCoinUpdateViewModel(dataSource) as T
+            }
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }
