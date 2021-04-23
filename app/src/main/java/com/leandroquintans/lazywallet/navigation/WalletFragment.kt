@@ -35,14 +35,24 @@ class WalletFragment : Fragment() {
         binding.walletViewModel = viewModel
 
         setUpObservers()
+        setUpOnClickListeners()
 
         return binding.root
     }
 
     private fun setUpObservers() {
+        // WalletEntity LiveData observer
         viewModel.walletEntity.observe(viewLifecycleOwner, Observer {
             if (it == null)
                 this.findNavController().navigate(R.id.action_walletFragment_to_walletCurrencyChooseFragmentForced)
         })
     }
+
+    private fun setUpOnClickListeners() {
+        // Update Wallet click listener
+        binding.updateWalletButton.setOnClickListener {
+            this.findNavController().navigate(R.id.action_walletFragment_to_walletCoinUpdateFragment)
+        }
+    }
+
 }
