@@ -37,7 +37,7 @@ class WalletCoinUpdateFragment : Fragment() {
 
         binding.lifecycleOwner = this
 
-        adapter = WalletCoinUpdateAdapter(viewModel.walletEntity?.value)
+        adapter = WalletCoinUpdateAdapter(viewModel.walletEntity.value)
         binding.coinList.adapter = adapter
 
         setUpObservers()

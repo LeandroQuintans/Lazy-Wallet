@@ -30,7 +30,7 @@ class WalletCoinUpdateAdapter(walletEntity: WalletEntity?): RecyclerView.Adapter
     override fun onBindViewHolder(holder: CoinUpdateItemViewHolder, position: Int) {
         val item = walletEntity?.currency?.currencyValues?.get(position)
         //Log.d("CoinUpdateAdapter", "item: $item")
-        val itemAmount = walletEntity?.wallet?.get(item?.toBigDecimal()).toString()
+        // val itemAmount = walletEntity?.wallet?.get(item?.toBigDecimal()).toString()
         //Log.d("CoinUpdateAdapter", "item amount: $itemAmount")
         holder.textView.text = item
         holder.editText.text = Editable.Factory.getInstance().newEditable(
