@@ -11,4 +11,5 @@
     <string name="costLabelText">Cost:</string>
     <string name="chooseCurrencyText">Choose your currency:</string>
     <string name="coinUpdateLabelText">Update your coin amounts</string>
+    <string name="coinUpdateButtonText">Update Amounts</string>
 </resources>

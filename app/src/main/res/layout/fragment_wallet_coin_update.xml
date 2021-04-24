@@ -5,8 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".navigation.WalletCoinUpdateFragment">
 
-    <LinearLayout
-        android:id="@+id/coinUpdateLinear"
+    <RelativeLayout
+        android:id="@+id/coinUpdateRelative"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
@@ -15,15 +15,31 @@
             android:id="@+id/coinUpdateLabelText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginBottom="8dp"
             android:text="@string/coinUpdateLabelText"
-            android:textSize="16sp"
-            android:layout_marginBottom="16dp"
-            android:layout_marginLeft="16dp" />
+            android:textSize="16sp" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/coinList"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_above="@id/coinUpdateButton"
+            android:layout_below="@id/coinUpdateLabelText"
+            android:scrollbars="vertical"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
-    </LinearLayout>
+
+        <Button
+            android:id="@+id/coinUpdateButton"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:text="@string/coinUpdateButtonText" />
+    </RelativeLayout>
 </layout>
