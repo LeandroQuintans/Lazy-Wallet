@@ -35,7 +35,7 @@ class PaymentListViewFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_payment_list_view, container, false)
+        return inflater.inflate(R.layout.fragment_payment_list, container, false)
     }
 
     companion object {
