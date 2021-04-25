@@ -88,7 +88,7 @@ data class WalletEntity(
         ),
         YEN(
                 "Yen (¥)",
-                "%d ¥",
+                "%.0f ¥",
                 arrayOf(
                         "1",
                         "5",
@@ -103,6 +103,6 @@ data class WalletEntity(
                 )
         );
 
-        fun formatWalletAmount(amount: BigDecimal?): String = String.format(format, amount)
+        fun formatWalletAmount(value: BigDecimal?): String = String.format(format, value)
     }
 }
