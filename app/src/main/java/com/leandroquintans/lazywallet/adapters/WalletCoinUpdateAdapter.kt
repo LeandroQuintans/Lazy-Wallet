@@ -1,21 +1,12 @@
 package com.leandroquintans.lazywallet.adapters
 
 import android.text.Editable
-import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import androidx.lifecycle.LifecycleOwner
-import androidx.navigation.NavController
 import androidx.recyclerview.widget.RecyclerView
-import com.leandroquintans.lazywallet.ButtonItemViewHolder
 import com.leandroquintans.lazywallet.CoinUpdateItemViewHolder
-import com.leandroquintans.lazywallet.R
+import com.leandroquintans.lazywallet.databinding.CoinUpdateItemViewBinding
 import com.leandroquintans.lazywallet.db.entities.WalletEntity
-import com.leandroquintans.lazywallet.viewmodels.WalletCoinUpdateViewModel
-import com.leandroquintans.lazywallet.viewmodels.WalletCurrencyChooseViewModel
-import java.math.BigDecimal
 
 class WalletCoinUpdateAdapter(walletEntity: WalletEntity?): RecyclerView.Adapter<CoinUpdateItemViewHolder>() {
     var walletEntity: WalletEntity? = walletEntity
@@ -41,8 +32,9 @@ class WalletCoinUpdateAdapter(walletEntity: WalletEntity?): RecyclerView.Adapter
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CoinUpdateItemViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
-        val view = layoutInflater.inflate(R.layout.coin_update_item_view, parent, false)
+        //val view = layoutInflater.inflate(R.layout.coin_update_item_view, parent, false)
+        val binding = CoinUpdateItemViewBinding.inflate(layoutInflater, parent, false)
 
-        return CoinUpdateItemViewHolder(view)
+        return CoinUpdateItemViewHolder(binding)
     }
 }
