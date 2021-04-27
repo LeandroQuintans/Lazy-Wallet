@@ -12,4 +12,6 @@
     <string name="chooseCurrencyText">Choose your currency:</string>
     <string name="coinUpdateLabelText">Update your coin amounts</string>
     <string name="coinUpdateButtonText">Update Amounts</string>
+    <string name="paymentListLabelText">Choose payment</string>
+    <string name="paymentConfirmSelButtonText">Confirm payment</string>
 </resources>

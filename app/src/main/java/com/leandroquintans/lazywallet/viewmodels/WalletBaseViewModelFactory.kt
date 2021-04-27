@@ -21,6 +21,6 @@ class WalletBaseViewModelFactory(private val dataSource: WalletDao) : ViewModelP
                 return WalletCoinUpdateViewModel(dataSource) as T
             }
         }
-        throw IllegalArgumentException("Unknown ViewModel class")
+        throw IllegalArgumentException("Unknown WalletBaseViewModel class")
     }
 }
