@@ -22,14 +22,19 @@
             android:text="@string/paymentListLabelText"
             android:textSize="16sp" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/coinList"
+        <HorizontalScrollView
+            android:id="@+id/paymentHorizontalScrollView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_above="@id/paymentConfirmSelButton"
-            android:layout_below="@id/paymentListLabelText"
-            android:scrollbars="vertical"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+            android:layout_below="@id/paymentListLabelText">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/paymentList"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent" />
+
+        </HorizontalScrollView>
 
         <Button
             android:id="@+id/paymentConfirmSelButton"
