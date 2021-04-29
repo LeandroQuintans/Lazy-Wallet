@@ -35,6 +35,6 @@ class WalletCoinUpdateAdapter(walletEntity: WalletEntity?): RecyclerView.Adapter
         //val view = layoutInflater.inflate(R.layout.coin_update_item_view, parent, false)
         val binding = CoinUpdateItemViewBinding.inflate(layoutInflater, parent, false)
 
-        return CoinUpdateItemViewHolder(binding)
+        return CoinUpdateItemViewHolder(binding.root)
     }
 }
