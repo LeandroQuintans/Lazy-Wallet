@@ -1,5 +1,6 @@
 package com.leandroquintans.lazywallet.viewmodels
 
+import android.util.Log
 import androidx.lifecycle.viewModelScope
 import coincost.CoinCost
 import coincost.Wallet
@@ -8,21 +9,18 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.math.BigDecimal
 
-class PaymentListViewModel(database: WalletDao, cost: BigDecimal) : WalletBaseViewModel(database) {
-    private val coinCost = CoinCost(walletEntity.value!!.wallet, cost)
-    private var payments = emptySet<Wallet>()
-
-    init {
-        initializePayments()
-    }
+class PaymentListViewModel(database: WalletDao, private val cost: BigDecimal) : WalletBaseViewModel(database) {
+    var payments = emptySet<Wallet>()
 
     private suspend fun calculatePayments(): Set<Wallet> {
         with(Dispatchers.IO) {
+            val wallet = walletEntity.value?.wallet
+            val coinCost = CoinCost(walletEntity.value?.wallet, cost)
             return coinCost.payments()
         }
     }
 
-    private fun initializePayments() {
+    fun initializePayments() {
         viewModelScope.launch {
             payments = calculatePayments()
         }
