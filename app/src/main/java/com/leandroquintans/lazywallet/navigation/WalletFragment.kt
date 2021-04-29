@@ -1,10 +1,12 @@
 package com.leandroquintans.lazywallet.navigation
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -52,6 +54,12 @@ class WalletFragment : Fragment() {
         // Update Wallet click listener
         binding.updateWalletButton.setOnClickListener {
             this.findNavController().navigate(R.id.action_walletFragment_to_walletCoinUpdateFragment)
+        }
+
+        // Payment click listener
+        binding.paymentButton.setOnClickListener {
+            val bundle = bundleOf("cost" to binding.costEditText.text.toString())
+            this.findNavController().navigate(R.id.action_walletFragment_to_paymentListViewFragment, bundle)
         }
     }
 
