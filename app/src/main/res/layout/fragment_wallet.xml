@@ -65,6 +65,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginBottom="8dp"
+                android:enabled="false"
                 android:text="@string/paymentButtonText" />
         </LinearLayout>
 

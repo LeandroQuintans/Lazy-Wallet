@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
+import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -15,6 +16,7 @@ import com.leandroquintans.lazywallet.databinding.FragmentWalletBinding
 import com.leandroquintans.lazywallet.db.AppDatabase
 import com.leandroquintans.lazywallet.viewmodels.WalletBaseViewModelFactory
 import com.leandroquintans.lazywallet.viewmodels.WalletViewModel
+import java.math.BigDecimal
 
 class WalletFragment : Fragment() {
     private lateinit var binding: FragmentWalletBinding
@@ -37,7 +39,7 @@ class WalletFragment : Fragment() {
         binding.walletViewModel = viewModel
 
         setUpObservers()
-        setUpOnClickListeners()
+        setUpListeners()
 
         return binding.root
     }
@@ -50,7 +52,8 @@ class WalletFragment : Fragment() {
         })
     }
 
-    private fun setUpOnClickListeners() {
+    private fun setUpListeners() {
+        // onClickListeners
         // Update Wallet click listener
         binding.updateWalletButton.setOnClickListener {
             this.findNavController().navigate(R.id.action_walletFragment_to_walletCoinUpdateFragment)
@@ -60,6 +63,17 @@ class WalletFragment : Fragment() {
         binding.paymentButton.setOnClickListener {
             val bundle = bundleOf("cost" to binding.costEditText.text.toString())
             this.findNavController().navigate(R.id.action_walletFragment_to_paymentListViewFragment, bundle)
+        }
+
+        // textChangedListeners
+        // costEditText textChangedListener
+        binding.costEditText.addTextChangedListener {
+            if (it.toString().isNotEmpty()) {
+                    binding.paymentButton.isEnabled = it.toString().toBigDecimal() > "0".toBigDecimal()
+            }
+            else {
+                binding.paymentButton.isEnabled = false
+            }
         }
     }
 
