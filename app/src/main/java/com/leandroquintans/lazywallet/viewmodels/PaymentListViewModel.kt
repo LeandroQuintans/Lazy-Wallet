@@ -14,7 +14,6 @@ class PaymentListViewModel(database: WalletDao, private val cost: BigDecimal) : 
 
     private suspend fun calculatePayments(): Set<Wallet> {
         with(Dispatchers.IO) {
-            val wallet = walletEntity.value?.wallet
             val coinCost = CoinCost(walletEntity.value?.wallet, cost)
             return coinCost.payments()
         }
