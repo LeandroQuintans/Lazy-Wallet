@@ -13,7 +13,8 @@ import java.math.BigDecimal
 
 class PaymentAdapter(
     payments: List<Wallet>,
-    coinValues: List<BigDecimal>?): RecyclerView.Adapter<TextItemViewHolder>() {
+    coinValues: List<BigDecimal>?
+): RecyclerView.Adapter<TextItemViewHolder>() {
     var payments = payments
         set(value) {
             field = value
