@@ -1,25 +1,18 @@
 package com.leandroquintans.lazywallet.navigation
 
 import android.graphics.Color
-import android.os.Build
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.annotation.RequiresApi
-import androidx.core.content.ContextCompat
-import androidx.core.content.res.ResourcesCompat
 import androidx.core.os.bundleOf
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
-import coincost.Wallet
-import com.leandroquintans.lazywallet.CoinUpdateItemViewHolder
 import com.leandroquintans.lazywallet.PaymentGridItemViewHolder
 import com.leandroquintans.lazywallet.R
-import com.leandroquintans.lazywallet.adapters.PaymentAdapter
-import com.leandroquintans.lazywallet.adapters.WalletCoinUpdateAdapter
+import com.leandroquintans.lazywallet.adapters.PaymentListAdapter
 import com.leandroquintans.lazywallet.databinding.FragmentPaymentListBinding
 import com.leandroquintans.lazywallet.db.AppDatabase
 import com.leandroquintans.lazywallet.db.converters.WalletConverter
@@ -31,7 +24,7 @@ class PaymentListFragment : Fragment() {
     private lateinit var binding: FragmentPaymentListBinding
     private lateinit var viewModel: PaymentListViewModel
     private lateinit var manager: GridLayoutManager
-    private lateinit var adapter: PaymentAdapter
+    private lateinit var adapter: PaymentListAdapter
     private var numCols: Int = 0
 
     override fun onCreateView(
@@ -53,7 +46,7 @@ class PaymentListFragment : Fragment() {
 
         val coinValues = viewModel.walletEntity.value?.wallet?.descendingKeySet()?.toList()
         numCols = coinValues?.size ?: 0
-        adapter = PaymentAdapter(viewModel.payments.sortedWith(walletComparator), coinValues, viewModel)
+        adapter = PaymentListAdapter(viewModel.payments.sortedWith(walletComparator), coinValues, viewModel)
         binding.paymentList.adapter = adapter
 
         setUpObservers()

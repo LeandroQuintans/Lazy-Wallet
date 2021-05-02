@@ -10,7 +10,7 @@ import com.leandroquintans.lazywallet.R
 import com.leandroquintans.lazywallet.viewmodels.PaymentListViewModel
 import java.math.BigDecimal
 
-class PaymentAdapter(
+class PaymentListAdapter(
     payments: List<Wallet>,
     coinValues: List<BigDecimal>?,
     private val viewModel: PaymentListViewModel
