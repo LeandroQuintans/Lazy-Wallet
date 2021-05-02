@@ -14,3 +14,7 @@ class CoinUpdateItemViewHolder(val itemView: View): RecyclerView.ViewHolder(item
     val textView: TextView = itemView.findViewById(R.id.coinValueText)
     val editText: EditText = itemView.findViewById(R.id.coinAmountEditText)
 }
+
+class PaymentGridItemViewHolder(val itemView: View): RecyclerView.ViewHolder(itemView) {
+    val textView: TextView = itemView.findViewById(R.id.paymentGridItemText)
+}
