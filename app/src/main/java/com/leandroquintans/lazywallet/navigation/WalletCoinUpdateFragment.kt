@@ -71,9 +71,9 @@ class WalletCoinUpdateFragment : Fragment() {
         //Log.d("WalletCoinUpdateFrag", "retrieve wallet start")
         val wallet = viewModel.walletEntity.value!!.wallet
         for (i in 0 until binding.coinList.childCount) {
-            var view = binding.coinList.getChildViewHolder(binding.coinList.getChildAt(i)) as CoinUpdateItemViewHolder
+            val view = binding.coinList.getChildViewHolder(binding.coinList.getChildAt(i)) as CoinUpdateItemViewHolder
             //Log.d("WalletCoinUpdateFrag", "view: $view")
-            var key = view.textView.text.toString().toBigDecimal()
+            val key = view.textView.text.toString().toBigDecimal()
             var value: Int
             try {
                 value = view.editText.text.toString().toInt()
