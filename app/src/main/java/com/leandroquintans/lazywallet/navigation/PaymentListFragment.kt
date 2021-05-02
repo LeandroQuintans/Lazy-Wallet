@@ -1,18 +1,28 @@
 package com.leandroquintans.lazywallet.navigation
 
+import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
+import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
+import androidx.core.os.bundleOf
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import coincost.Wallet
+import com.leandroquintans.lazywallet.CoinUpdateItemViewHolder
+import com.leandroquintans.lazywallet.PaymentGridItemViewHolder
 import com.leandroquintans.lazywallet.R
 import com.leandroquintans.lazywallet.adapters.PaymentAdapter
 import com.leandroquintans.lazywallet.adapters.WalletCoinUpdateAdapter
 import com.leandroquintans.lazywallet.databinding.FragmentPaymentListBinding
 import com.leandroquintans.lazywallet.db.AppDatabase
+import com.leandroquintans.lazywallet.db.converters.WalletConverter
 import com.leandroquintans.lazywallet.viewmodels.PaymentListViewModel
 import com.leandroquintans.lazywallet.viewmodels.PaymentListViewModelFactory
 import com.leandroquintans.lazywallet.walletComparator
@@ -22,6 +32,7 @@ class PaymentListFragment : Fragment() {
     private lateinit var viewModel: PaymentListViewModel
     private lateinit var manager: GridLayoutManager
     private lateinit var adapter: PaymentAdapter
+    private var numCols: Int = 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,10 +51,14 @@ class PaymentListFragment : Fragment() {
         manager = GridLayoutManager(activity, 1, GridLayoutManager.VERTICAL, false)
         binding.paymentList.layoutManager = manager
 
-        adapter = PaymentAdapter(viewModel.payments, viewModel.walletEntity.value?.wallet?.keySet()?.toList())
+        val coinValues = viewModel.walletEntity.value?.wallet?.descendingKeySet()?.toList()
+        numCols = coinValues?.size ?: 0
+        adapter = PaymentAdapter(viewModel.payments.sortedWith(walletComparator), coinValues, viewModel)
         binding.paymentList.adapter = adapter
 
         setUpObservers()
+        setUpListeners()
+        binding.paymentConfirmSelButton.isEnabled = false
 
         return binding.root
     }
@@ -55,6 +70,30 @@ class PaymentListFragment : Fragment() {
             manager.spanCount = viewModel.walletEntity.value?.wallet?.keySet()?.size ?: 1
             adapter.payments = viewModel.payments.sortedWith(walletComparator)
             adapter.coinValues = viewModel.walletEntity.value?.wallet?.descendingKeySet()?.toList()
+            numCols = adapter.coinValues?.size ?: 0
+        })
+
+        // payment selection update observer
+        viewModel.selectedPayment.observe(viewLifecycleOwner, {
+            for (i in numCols until binding.paymentList.childCount) {
+                var view = binding.paymentList.getChildViewHolder(binding.paymentList.getChildAt(i)) as PaymentGridItemViewHolder
+
+                val attrs = intArrayOf(android.R.attr.colorBackground, android.R.attr.colorFocusedHighlight)
+                val ta = requireContext().theme.obtainStyledAttributes(attrs)
+                var colorInt = ta.getColor(0, Color.BLACK)
+                view.textView.setBackgroundColor(colorInt)
+
+                binding.paymentConfirmSelButton.isEnabled = false
+
+                if (it != null) {
+                    colorInt = ta.getColor(1, Color.BLACK)
+                    for (j in numCols*it until numCols*it+numCols) {
+                        view = binding.paymentList.getChildViewHolder(binding.paymentList.getChildAt(j)) as PaymentGridItemViewHolder
+                        view.textView.setBackgroundColor(colorInt)
+                    }
+                    binding.paymentConfirmSelButton.isEnabled = true
+                }
+            }
         })
     }
 }

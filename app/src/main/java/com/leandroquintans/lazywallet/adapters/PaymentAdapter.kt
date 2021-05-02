@@ -7,11 +7,13 @@ import androidx.recyclerview.widget.RecyclerView
 import coincost.Wallet
 import com.leandroquintans.lazywallet.PaymentGridItemViewHolder
 import com.leandroquintans.lazywallet.R
+import com.leandroquintans.lazywallet.viewmodels.PaymentListViewModel
 import java.math.BigDecimal
 
 class PaymentAdapter(
     payments: List<Wallet>,
-    coinValues: List<BigDecimal>?
+    coinValues: List<BigDecimal>?,
+    private val viewModel: PaymentListViewModel
 ): RecyclerView.Adapter<PaymentGridItemViewHolder>() {
     var payments = payments
         set(value) {
@@ -36,6 +38,12 @@ class PaymentAdapter(
         holder.textView.text = item.toString()
         if (row == 0)
             holder.textView.typeface = Typeface.DEFAULT_BOLD
+        else
+            holder.textView.setOnClickListener {
+                viewModel.selectPayment(
+                    if (viewModel.selectedPayment.value == row) null else row
+                )
+            }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PaymentGridItemViewHolder {
