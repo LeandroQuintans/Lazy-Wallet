@@ -5,14 +5,13 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <TextView xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/paymentGridItemText"
+    <TextView android:id="@+id/paymentGridItemText"
         android:textSize="24sp"
         android:paddingStart="16dp"
         android:paddingEnd="16dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_horizontal"/>
+        android:gravity="center_horizontal" />
     <View
         android:id="@+id/divider"
         android:layout_width="match_parent"
