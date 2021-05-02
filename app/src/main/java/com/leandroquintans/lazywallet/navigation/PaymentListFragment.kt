@@ -40,7 +40,7 @@ class PaymentListFragment : Fragment() {
         manager = GridLayoutManager(activity, 1, GridLayoutManager.VERTICAL, false)
         binding.paymentList.layoutManager = manager
 
-        adapter = PaymentAdapter(viewModel.payments.toList(), viewModel.walletEntity.value?.wallet?.keySet()?.toList())
+        adapter = PaymentAdapter(viewModel.payments, viewModel.walletEntity.value?.wallet?.keySet()?.toList())
         binding.paymentList.adapter = adapter
 
         setUpObservers()
@@ -49,10 +49,11 @@ class PaymentListFragment : Fragment() {
     }
 
     private fun setUpObservers() {
+        // payments update observer
         viewModel.walletEntity.observe(viewLifecycleOwner, {
             viewModel.initializePayments()
             manager.spanCount = viewModel.walletEntity.value?.wallet?.keySet()?.size ?: 1
-            adapter.payments = viewModel.payments.toList().sortedWith(walletComparator)
+            adapter.payments = viewModel.payments.sortedWith(walletComparator)
             adapter.coinValues = viewModel.walletEntity.value?.wallet?.descendingKeySet()?.toList()
         })
     }

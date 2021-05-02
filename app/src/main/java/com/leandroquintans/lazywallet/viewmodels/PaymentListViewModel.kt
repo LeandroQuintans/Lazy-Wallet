@@ -10,12 +10,12 @@ import kotlinx.coroutines.launch
 import java.math.BigDecimal
 
 class PaymentListViewModel(database: WalletDao, private val cost: BigDecimal) : WalletBaseViewModel(database) {
-    var payments = emptySet<Wallet>()
+    var payments = emptyList<Wallet>()
 
     private suspend fun calculatePayments(): Set<Wallet> {
         with(Dispatchers.IO) {
             val coinCost = CoinCost(walletEntity.value?.wallet, cost)
-            return coinCost.payments()
+            return coinCost.payments().toList()
         }
     }
 
