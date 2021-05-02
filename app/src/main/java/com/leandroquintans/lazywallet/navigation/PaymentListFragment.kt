@@ -96,4 +96,15 @@ class PaymentListFragment : Fragment() {
             }
         })
     }
+
+    private fun setUpListeners() {
+        binding.paymentConfirmSelButton.setOnClickListener {
+            val converter = WalletConverter()
+            val payment = viewModel.selectedPayment.value?.let { viewModel.payments[it] }
+            val bundle = bundleOf("payment" to converter.stringToWallet(payment))
+            this.findNavController().navigate(R.id.action_paymentListViewFragment_to_paymentCheckFragment, bundle)
+        }
+    }
+
+
 }
