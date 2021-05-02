@@ -67,9 +67,9 @@ class WalletFragment : Fragment() {
 
         // textChangedListeners
         // costEditText textChangedListener
-        binding.costEditText.addTextChangedListener {
+        binding.costEditText.addTextChangedListener { // test if it survives configuration changes
             if (it.toString().isNotEmpty()) {
-                    binding.paymentButton.isEnabled = it.toString().toBigDecimal() > "0".toBigDecimal()
+                binding.paymentButton.isEnabled = it.toString().toBigDecimal() > "0".toBigDecimal()
             }
             else {
                 binding.paymentButton.isEnabled = false
