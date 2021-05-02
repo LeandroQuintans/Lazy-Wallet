@@ -87,7 +87,7 @@ class PaymentListFragment : Fragment() {
 
                 if (it != null) {
                     colorInt = ta.getColor(1, Color.BLACK)
-                    for (j in numCols*it until numCols*it+numCols) {
+                    for (j in numCols*(it+1) until numCols*(it+1)+numCols) {
                         view = binding.paymentList.getChildViewHolder(binding.paymentList.getChildAt(j)) as PaymentGridItemViewHolder
                         view.textView.setBackgroundColor(colorInt)
                     }

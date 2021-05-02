@@ -41,7 +41,7 @@ class PaymentAdapter(
         else
             holder.textView.setOnClickListener {
                 viewModel.selectPayment(
-                    if (viewModel.selectedPayment.value == row) null else row
+                    if (viewModel.selectedPayment.value == row-1) null else row-1
                 )
             }
     }
