@@ -12,7 +12,7 @@ class WalletCoinUpdateViewModel(database: WalletDao) : WalletBaseViewModel(datab
     }
 
     fun updateCoinAmounts(wallet: Wallet) {
-        viewModelScope.launch {
+        viewModelScope.launch { //TODO change this to not make a new variable
             var updatedWalletEntity = _walletEntity.value
             updatedWalletEntity?.wallet = wallet
             updateWalletInDatabase(updatedWalletEntity)
