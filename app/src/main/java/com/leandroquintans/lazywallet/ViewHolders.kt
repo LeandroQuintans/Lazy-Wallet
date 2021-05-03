@@ -10,16 +10,16 @@ import androidx.recyclerview.widget.RecyclerView
 
 class ButtonItemViewHolder(val button: Button): RecyclerView.ViewHolder(button)
 
-class CoinUpdateItemViewHolder(val itemView: View): RecyclerView.ViewHolder(itemView) {
+class CoinUpdateItemViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
     val textView: TextView = itemView.findViewById(R.id.coinValueText)
     val editText: EditText = itemView.findViewById(R.id.coinAmountEditText)
 }
 
-class PaymentGridItemViewHolder(val itemView: View): RecyclerView.ViewHolder(itemView) {
+class PaymentGridItemViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
     val textView: TextView = itemView.findViewById(R.id.paymentGridItemText)
 }
 
-class PaymentItemViewHolder(val itemView: View): RecyclerView.ViewHolder(itemView) {
+class PaymentItemViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
     val textViewCoinValue: TextView = itemView.findViewById(R.id.paymentCoinValueText)
     val textViewCoinAmount: TextView = itemView.findViewById(R.id.paymentCoinAmountText)
 }
