@@ -5,56 +5,62 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
+import coincost.Wallet
 import com.leandroquintans.lazywallet.R
+import com.leandroquintans.lazywallet.adapters.PaymentCheckAdapter
+import com.leandroquintans.lazywallet.adapters.PaymentListAdapter
+import com.leandroquintans.lazywallet.databinding.FragmentPaymentCheckBinding
+import com.leandroquintans.lazywallet.db.AppDatabase
+import com.leandroquintans.lazywallet.db.converters.WalletConverter
+import com.leandroquintans.lazywallet.viewmodels.PaymentCheckViewModel
+import com.leandroquintans.lazywallet.viewmodels.PaymentCheckViewModelFactory
+import com.leandroquintans.lazywallet.viewmodels.PaymentListViewModel
+import com.leandroquintans.lazywallet.viewmodels.PaymentListViewModelFactory
+import com.leandroquintans.lazywallet.walletComparator
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [PaymentCheckFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class PaymentCheckFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    private lateinit var binding: FragmentPaymentCheckBinding
+    private lateinit var viewModel: PaymentCheckViewModel
+    private lateinit var adapter: PaymentCheckAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_payment_check, container, false)
+        binding = FragmentPaymentCheckBinding.inflate(inflater, container, false)
+
+        val application = requireNotNull(this.activity).application
+        val dataSource = AppDatabase.getInstance(application).walletDao
+
+        val walletConverter = WalletConverter()
+        val payment = walletConverter.fromString(requireArguments().getString("payment")) ?: Wallet()
+
+        val viewModelFactory = PaymentCheckViewModelFactory(dataSource, payment)
+        viewModel = ViewModelProvider(this, viewModelFactory).get(PaymentCheckViewModel::class.java)
+
+        binding.lifecycleOwner = this
+
+        adapter = PaymentCheckAdapter(viewModel.payment, viewModel.walletEntity.value?.currency)
+        binding.payment.adapter = adapter
+
+        setUpObservers()
+        setUpOnListeners()
+
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment PaymentCheckFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            PaymentCheckFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+    private fun setUpObservers() {
+        viewModel.walletEntity.observe(viewLifecycleOwner, {
+            adapter.currency = viewModel.walletEntity.value?.currency
+        })
+    }
+
+    private fun setUpOnListeners() {
+        binding.paymentCheckButton.setOnClickListener {
+            viewModel.subtractPaymentFromWallet()
+            this.findNavController().navigate(R.id.action_paymentCheckFragment_to_walletFragment)
+        }
     }
 }

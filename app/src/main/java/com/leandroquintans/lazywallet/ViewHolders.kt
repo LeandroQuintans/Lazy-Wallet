@@ -6,7 +6,7 @@ import android.widget.EditText
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
-class TextItemViewHolder(val textView: TextView): RecyclerView.ViewHolder(textView)
+// class TextItemViewHolder(val textView: TextView): RecyclerView.ViewHolder(textView)
 
 class ButtonItemViewHolder(val button: Button): RecyclerView.ViewHolder(button)
 
@@ -17,4 +17,9 @@ class CoinUpdateItemViewHolder(val itemView: View): RecyclerView.ViewHolder(item
 
 class PaymentGridItemViewHolder(val itemView: View): RecyclerView.ViewHolder(itemView) {
     val textView: TextView = itemView.findViewById(R.id.paymentGridItemText)
+}
+
+class PaymentItemViewHolder(val itemView: View): RecyclerView.ViewHolder(itemView) {
+    val textViewCoinValue: TextView = itemView.findViewById(R.id.paymentCoinValueText)
+    val textViewCoinAmount: TextView = itemView.findViewById(R.id.paymentCoinAmountText)
 }
