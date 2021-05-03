@@ -36,9 +36,10 @@ class PaymentListFragment : Fragment() {
         val application = requireNotNull(this.activity).application
         val dataSource = AppDatabase.getInstance(application).walletDao
 
-        val cost = arguments?.getString("cost")?.toBigDecimal() ?: "0".toBigDecimal()
+        val cost = requireArguments().getString("cost")?.toBigDecimal() ?: "0".toBigDecimal()
         val viewModelFactory = PaymentListViewModelFactory(dataSource, cost)
 
+        binding.lifecycleOwner = this
         viewModel = ViewModelProvider(this, viewModelFactory).get(PaymentListViewModel::class.java)
 
         manager = GridLayoutManager(activity, 1, GridLayoutManager.VERTICAL, false)
@@ -46,7 +47,7 @@ class PaymentListFragment : Fragment() {
 
         val coinValues = viewModel.walletEntity.value?.wallet?.descendingKeySet()?.toList()
         numCols = coinValues?.size ?: 0
-        adapter = PaymentListAdapter(viewModel.payments.sortedWith(walletComparator), coinValues, viewModel)
+        adapter = PaymentListAdapter(viewModel.payments, coinValues, viewModel)
         binding.paymentList.adapter = adapter
 
         setUpObservers()
@@ -61,7 +62,7 @@ class PaymentListFragment : Fragment() {
         viewModel.walletEntity.observe(viewLifecycleOwner, {
             viewModel.initializePayments()
             manager.spanCount = viewModel.walletEntity.value?.wallet?.keySet()?.size ?: 1
-            adapter.payments = viewModel.payments.sortedWith(walletComparator)
+            adapter.payments = viewModel.payments
             adapter.coinValues = viewModel.walletEntity.value?.wallet?.descendingKeySet()?.toList()
             numCols = adapter.coinValues?.size ?: 0
         })

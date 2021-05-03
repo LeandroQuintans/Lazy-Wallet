@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import coincost.CoinCost
 import coincost.Wallet
 import com.leandroquintans.lazywallet.db.dao.WalletDao
+import com.leandroquintans.lazywallet.walletComparator
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.math.BigDecimal
@@ -21,7 +22,7 @@ class PaymentListViewModel(database: WalletDao, private val cost: BigDecimal) : 
     private suspend fun calculatePayments(): List<Wallet> {
         with(Dispatchers.IO) {
             val coinCost = CoinCost(walletEntity.value?.wallet, cost)
-            return coinCost.payments().toList()
+            return coinCost.payments().toList().sortedWith(walletComparator)
         }
     }
 
