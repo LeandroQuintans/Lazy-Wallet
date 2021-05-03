@@ -1,5 +1,6 @@
 package com.leandroquintans.lazywallet.navigation
 
+import android.annotation.SuppressLint
 import android.graphics.Color
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -57,6 +58,7 @@ class PaymentListFragment : Fragment() {
         return binding.root
     }
 
+    @SuppressLint("ResourceType")
     private fun setUpObservers() {
         // payments update observer
         viewModel.walletEntity.observe(viewLifecycleOwner, {
@@ -69,22 +71,23 @@ class PaymentListFragment : Fragment() {
 
         // payment selection update observer
         viewModel.selectedPayment.observe(viewLifecycleOwner, {
-            for (i in numCols until binding.paymentList.childCount) {
-                var view = binding.paymentList.getChildViewHolder(binding.paymentList.getChildAt(i)) as PaymentGridItemViewHolder
+            val attrs = intArrayOf(android.R.attr.colorBackground, android.R.attr.colorFocusedHighlight)
+            val ta = requireContext().theme.obtainStyledAttributes(attrs)
+            val colorIntDefault = ta.getColor(0, Color.BLACK)
+            val colorIntSelected = ta.getColor(1, Color.BLUE)
 
-                val attrs = intArrayOf(android.R.attr.colorBackground, android.R.attr.colorFocusedHighlight)
-                val ta = requireContext().theme.obtainStyledAttributes(attrs)
-                var colorInt = ta.getColor(0, Color.BLACK)
-                view.textView.setBackgroundColor(colorInt)
+            for (i in numCols until binding.paymentList.childCount) {
+                val view = binding.paymentList.getChildViewHolder(binding.paymentList.getChildAt(i)) as PaymentGridItemViewHolder
+
+                view.textView.setBackgroundColor(colorIntDefault)
 
                 binding.paymentConfirmSelButton.isEnabled = false
 
-                if (it != null) {
-                    colorInt = ta.getColor(1, Color.BLACK)
-                    for (j in numCols*(it+1) until numCols*(it+1)+numCols) {
-                        view = binding.paymentList.getChildViewHolder(binding.paymentList.getChildAt(j)) as PaymentGridItemViewHolder
-                        view.textView.setBackgroundColor(colorInt)
-                    }
+                if (it != null && it == i/numCols - 1) {
+                    //for (j in numCols*(it+1) until numCols*(it+1)+numCols) {
+                        //view = binding.paymentList.getChildViewHolder(binding.paymentList.getChildAt(j)) as PaymentGridItemViewHolder
+                        view.textView.setBackgroundColor(colorIntSelected)
+                    //}
                     binding.paymentConfirmSelButton.isEnabled = true
                 }
             }
