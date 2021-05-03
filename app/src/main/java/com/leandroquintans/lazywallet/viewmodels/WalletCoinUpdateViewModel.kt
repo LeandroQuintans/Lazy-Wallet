@@ -7,9 +7,6 @@ import com.leandroquintans.lazywallet.db.entities.WalletEntity
 import kotlinx.coroutines.launch
 
 class WalletCoinUpdateViewModel(database: WalletDao) : WalletBaseViewModel(database) {
-    private suspend fun updateWalletInDatabase(walletEntity: WalletEntity?) = walletEntity?.let {
-        database.update(it)
-    }
 
     fun updateCoinAmounts(wallet: Wallet) {
         viewModelScope.launch { //TODO change this to not make a new variable

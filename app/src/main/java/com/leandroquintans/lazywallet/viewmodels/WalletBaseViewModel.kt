@@ -20,6 +20,10 @@ abstract class WalletBaseViewModel(protected val database: WalletDao) : ViewMode
         Log.i("WalletViewModel", "WalletViewModel destroyed!")
     }*/
 
+    protected suspend fun updateWalletInDatabase(walletEntity: WalletEntity?) = walletEntity?.let {
+        database.update(it)
+    }
+
     private suspend fun getWalletFromDatabase(): WalletEntity? = database.getWallet()
 
     private fun initializeWallet() {
