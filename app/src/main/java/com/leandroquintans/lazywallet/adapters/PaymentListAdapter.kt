@@ -26,8 +26,6 @@ class PaymentListAdapter(
             notifyDataSetChanged()
         }
 
-
-
     override fun getItemCount(): Int = coinValues?.size?.times(payments.size + 1) ?: 0
 
     override fun onBindViewHolder(holder: PaymentGridItemViewHolder, position: Int) {
