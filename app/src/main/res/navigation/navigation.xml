@@ -64,6 +64,8 @@
         tools:layout="@layout/fragment_payment_check" >
         <action
             android:id="@+id/action_paymentCheckFragment_to_walletFragment"
-            app:destination="@id/walletFragment" />
+            app:destination="@id/walletFragment"
+            app:popUpTo="@id/walletFragment"
+            app:popUpToInclusive="true" />
     </fragment>
 </navigation>
