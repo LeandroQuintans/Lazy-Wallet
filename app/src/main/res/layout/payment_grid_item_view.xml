@@ -3,7 +3,9 @@
     android:id="@+id/paymentGridLinear"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:layout_margin="8dp"
+    android:orientation="vertical"
+    android:background="@drawable/payment_grid_item_background" >
 
     <TextView android:id="@+id/paymentGridItemText"
         android:textSize="24sp"

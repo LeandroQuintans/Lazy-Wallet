@@ -10,22 +10,25 @@ import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.selection.SelectionPredicates
+import androidx.recyclerview.selection.SelectionTracker
+import androidx.recyclerview.selection.StableIdKeyProvider
+import androidx.recyclerview.selection.StorageStrategy
 import androidx.recyclerview.widget.GridLayoutManager
-import com.leandroquintans.lazywallet.PaymentGridItemViewHolder
-import com.leandroquintans.lazywallet.R
+import com.leandroquintans.lazywallet.*
 import com.leandroquintans.lazywallet.adapters.PaymentListAdapter
 import com.leandroquintans.lazywallet.databinding.FragmentPaymentListBinding
 import com.leandroquintans.lazywallet.db.AppDatabase
 import com.leandroquintans.lazywallet.db.converters.WalletConverter
 import com.leandroquintans.lazywallet.viewmodels.PaymentListViewModel
 import com.leandroquintans.lazywallet.viewmodels.PaymentListViewModelFactory
-import com.leandroquintans.lazywallet.walletComparator
 
 class PaymentListFragment : Fragment() {
     private lateinit var binding: FragmentPaymentListBinding
     private lateinit var viewModel: PaymentListViewModel
     private lateinit var manager: GridLayoutManager
     private lateinit var adapter: PaymentListAdapter
+    private lateinit var tracker: SelectionTracker<Long>
     private var numCols: Int = 0
 
     override fun onCreateView(
@@ -43,6 +46,7 @@ class PaymentListFragment : Fragment() {
         binding.lifecycleOwner = this
         viewModel = ViewModelProvider(this, viewModelFactory).get(PaymentListViewModel::class.java)
 
+        // RecyclerView stuff start
         manager = GridLayoutManager(activity, 1, GridLayoutManager.VERTICAL, false)
         binding.paymentList.layoutManager = manager
 
@@ -50,6 +54,21 @@ class PaymentListFragment : Fragment() {
         numCols = coinValues?.size ?: 0
         adapter = PaymentListAdapter(viewModel.payments, coinValues, viewModel)
         binding.paymentList.adapter = adapter
+
+        tracker = SelectionTracker.Builder<Long>(
+            "paymentListSelection",
+            binding.paymentList,
+            StableIdKeyProvider(binding.paymentList),
+            PaymentGridItemDetailsLookup(binding.paymentList),
+            StorageStrategy.createLongStorage()
+        ).withSelectionPredicate(
+            SelectionPredicates.createSelectSingleAnything()
+        ).build()
+        adapter.tracker = tracker
+
+
+
+        // RecyclerView stuff end
 
         setUpObservers()
         setUpListeners()
@@ -64,13 +83,13 @@ class PaymentListFragment : Fragment() {
         viewModel.walletEntity.observe(viewLifecycleOwner, {
             viewModel.initializePayments()
             manager.spanCount = viewModel.walletEntity.value?.wallet?.keySet()?.size ?: 1
-            adapter.payments = viewModel.payments
             adapter.coinValues = viewModel.walletEntity.value?.wallet?.descendingKeySet()?.toList()
+            adapter.payments = viewModel.payments
             numCols = adapter.coinValues?.size ?: 0
         })
 
         // payment selection update observer
-        viewModel.selectedPayment.observe(viewLifecycleOwner, {
+        /*viewModel.selectedPayment.observe(viewLifecycleOwner, {
             val attrs = intArrayOf(android.R.attr.colorBackground, android.R.attr.colorFocusedHighlight)
             val ta = requireContext().theme.obtainStyledAttributes(attrs)
             val colorIntDefault = ta.getColor(0, Color.BLACK)
@@ -91,7 +110,7 @@ class PaymentListFragment : Fragment() {
                     binding.paymentConfirmSelButton.isEnabled = true
                 }
             }
-        })
+        })*/
     }
 
     private fun setUpListeners() {
