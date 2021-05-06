@@ -52,7 +52,7 @@ class PaymentListFragment : Fragment() {
 
         val coinValues = viewModel.walletEntity.value?.wallet?.descendingKeySet()?.toList()
         numCols = coinValues?.size ?: 0
-        adapter = PaymentListAdapter(viewModel.payments, coinValues, viewModel)
+        adapter = PaymentListAdapter(viewModel.payments, coinValues)
         binding.paymentList.adapter = adapter
 
         tracker = SelectionTracker.Builder<Long>(
@@ -62,7 +62,7 @@ class PaymentListFragment : Fragment() {
             PaymentGridItemDetailsLookup(binding.paymentList),
             StorageStrategy.createLongStorage()
         ).withSelectionPredicate(
-            SelectionPredicates.createSelectSingleAnything()
+            SelectionPredicates.createSelectAnything()
         ).build()
         adapter.tracker = tracker
 
@@ -88,29 +88,22 @@ class PaymentListFragment : Fragment() {
             numCols = adapter.coinValues?.size ?: 0
         })
 
-        // payment selection update observer
-        /*viewModel.selectedPayment.observe(viewLifecycleOwner, {
-            val attrs = intArrayOf(android.R.attr.colorBackground, android.R.attr.colorFocusedHighlight)
-            val ta = requireContext().theme.obtainStyledAttributes(attrs)
-            val colorIntDefault = ta.getColor(0, Color.BLACK)
-            val colorIntSelected = ta.getColor(1, Color.BLUE)
+        adapter.tracker?.addObserver(
+            object : SelectionTracker.SelectionObserver<Long>() {
+                override fun onItemStateChanged(key: Long, selected: Boolean) {
+                    super.onItemStateChanged(key, selected)
+                    val row = key/numCols
+                    val firstKey = (row + 1)*numCols - numCols
+                    val lastKey = (row + 1)*numCols - 1
 
-            for (i in numCols until binding.paymentList.childCount) {
-                val view = binding.paymentList.getChildViewHolder(binding.paymentList.getChildAt(i)) as PaymentGridItemViewHolder
+                    val keys = (firstKey..lastKey).filter { it != key }
 
-                view.textView.setBackgroundColor(colorIntDefault)
-
-                binding.paymentConfirmSelButton.isEnabled = false
-
-                if (it != null && it == i/numCols - 1) {
-                    //for (j in numCols*(it+1) until numCols*(it+1)+numCols) {
-                        //view = binding.paymentList.getChildViewHolder(binding.paymentList.getChildAt(j)) as PaymentGridItemViewHolder
-                        view.textView.setBackgroundColor(colorIntSelected)
-                    //}
-                    binding.paymentConfirmSelButton.isEnabled = true
+                    tracker.setItemsSelected(keys, selected)
+                    viewModel.selectPayment(row.toInt() - 1)
+                    binding.paymentConfirmSelButton.isEnabled = selected
                 }
             }
-        })*/
+        )
     }
 
     private fun setUpListeners() {

@@ -14,8 +14,7 @@ import java.math.BigDecimal
 
 class PaymentListAdapter(
     payments: List<Wallet>,
-    coinValues: List<BigDecimal>?,
-    private val viewModel: PaymentListViewModel
+    coinValues: List<BigDecimal>?
 ): RecyclerView.Adapter<PaymentGridItemViewHolder>() {
     var payments = payments
         set(value) {
@@ -48,15 +47,6 @@ class PaymentListAdapter(
 
             holder.bind(item.toString(), it.isSelected(position.toLong()))
         }
-
-        /*if (row == 0)
-            holder.textView.typeface = Typeface.DEFAULT_BOLD
-        else
-            holder.textView.setOnClickListener {
-                viewModel.selectPayment(
-                    if (viewModel.selectedPayment.value == row-1) null else row-1
-                )
-            }*/
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PaymentGridItemViewHolder {
