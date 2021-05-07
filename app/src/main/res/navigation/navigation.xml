@@ -68,4 +68,7 @@
             app:popUpTo="@id/walletFragment"
             app:popUpToInclusive="true" />
     </fragment>
+    <deepLink
+        android:id="@+id/deepLink"
+        app:uri="com.leandroquintans.lazywallet" />
 </navigation>
