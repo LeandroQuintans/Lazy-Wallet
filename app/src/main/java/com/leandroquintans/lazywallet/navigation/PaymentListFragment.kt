@@ -62,7 +62,25 @@ class PaymentListFragment : Fragment() {
             PaymentGridItemDetailsLookup(binding.paymentList),
             StorageStrategy.createLongStorage()
         ).withSelectionPredicate(
-            SelectionPredicates.createSelectAnything()
+            object : SelectionTracker.SelectionPredicate<Long>() {
+                override fun canSetStateForKey(key: Long, nextState: Boolean): Boolean {
+                    return if (nextState)
+                        tracker.selection.size() < numCols
+                    else
+                        true
+                }
+
+                override fun canSetStateAtPosition(position: Int, nextState: Boolean): Boolean {
+                    return if (nextState)
+                        tracker.selection.size() < numCols
+                    else
+                        true
+                }
+
+                override fun canSelectMultiple(): Boolean {
+                    return true
+                }
+            }
         ).build()
         adapter.tracker = tracker
 
