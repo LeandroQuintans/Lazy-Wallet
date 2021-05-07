@@ -42,9 +42,6 @@ class PaymentListAdapter(
 
         val item = if (row == 0) coinValues?.get(col) else payments[row-1][coinValues?.get(col)]
         tracker?.let {
-            val selected = it.isSelected(position.toLong())
-            Log.d("PaymentListAdapter", selected.toString())
-
             holder.bind(item.toString(), it.isSelected(position.toLong()))
         }
     }
