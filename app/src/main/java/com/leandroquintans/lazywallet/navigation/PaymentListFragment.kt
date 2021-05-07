@@ -64,6 +64,9 @@ class PaymentListFragment : Fragment() {
         ).withSelectionPredicate(
             object : SelectionTracker.SelectionPredicate<Long>() {
                 override fun canSetStateForKey(key: Long, nextState: Boolean): Boolean {
+                    if (key/numCols == 0L)
+                        return false
+
                     return if (nextState)
                         tracker.selection.size() < numCols
                     else
@@ -71,6 +74,9 @@ class PaymentListFragment : Fragment() {
                 }
 
                 override fun canSetStateAtPosition(position: Int, nextState: Boolean): Boolean {
+                    if (position/numCols == 0)
+                        return false
+
                     return if (nextState)
                         tracker.selection.size() < numCols
                     else
