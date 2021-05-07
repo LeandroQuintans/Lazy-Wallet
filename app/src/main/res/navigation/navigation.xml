@@ -8,8 +8,8 @@
     <fragment
         android:id="@+id/walletFragment"
         android:name="com.leandroquintans.lazywallet.navigation.WalletFragment"
-        android:label="fragment_wallet"
-        tools:layout="@layout/fragment_wallet" >
+        android:label="Lazy Wallet"
+        tools:layout="@layout/fragment_wallet">
         <action
             android:id="@+id/action_walletFragment_to_walletCurrencyChooseFragment"
             app:destination="@id/walletCurrencyChooseFragment" />
@@ -28,7 +28,7 @@
     <fragment
         android:id="@+id/walletCurrencyChooseFragment"
         android:name="com.leandroquintans.lazywallet.navigation.WalletCurrencyChooseFragment"
-        android:label="WalletCurrencyChooseFragment"
+        android:label="Lazy Wallet"
         tools:layout="@layout/fragment_wallet_currency_choose">
         <action
             android:id="@+id/action_walletCurrencyChooseFragment_to_walletFragment"
@@ -42,8 +42,8 @@
     <fragment
         android:id="@+id/walletCoinUpdateFragment"
         android:name="com.leandroquintans.lazywallet.navigation.WalletCoinUpdateFragment"
-        android:label="fragment_wallet_coin_update"
-        tools:layout="@layout/fragment_wallet_coin_update" >
+        android:label="Lazy Wallet"
+        tools:layout="@layout/fragment_wallet_coin_update">
         <action
             android:id="@+id/action_walletCoinUpdateFragment_to_walletFragment"
             app:destination="@id/walletFragment" />
@@ -51,8 +51,8 @@
     <fragment
         android:id="@+id/paymentListViewFragment"
         android:name="com.leandroquintans.lazywallet.navigation.PaymentListFragment"
-        android:label="fragment_payment_list_view"
-        tools:layout="@layout/fragment_payment_list" >
+        android:label="Lazy Wallet"
+        tools:layout="@layout/fragment_payment_list">
         <action
             android:id="@+id/action_paymentListViewFragment_to_paymentCheckFragment"
             app:destination="@id/paymentCheckFragment" />
@@ -60,8 +60,8 @@
     <fragment
         android:id="@+id/paymentCheckFragment"
         android:name="com.leandroquintans.lazywallet.navigation.PaymentCheckFragment"
-        android:label="fragment_payment_check"
-        tools:layout="@layout/fragment_payment_check" >
+        android:label="Lazy Wallet"
+        tools:layout="@layout/fragment_payment_check">
         <action
             android:id="@+id/action_paymentCheckFragment_to_walletFragment"
             app:destination="@id/walletFragment"
