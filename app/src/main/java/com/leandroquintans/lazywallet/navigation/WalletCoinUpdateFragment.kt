@@ -63,19 +63,4 @@ class WalletCoinUpdateFragment : Fragment() {
             //Log.d("WalletCoinUpdateFrag", "coinUpdateButton listener end")
         }
     }
-
-    private fun retrieveWallet(): Wallet {
-        //Log.d("WalletCoinUpdateFrag", "retrieve wallet start")
-        val wallet = viewModel.walletEntity.value!!.wallet
-        for (i in 0 until binding.coinList.childCount) {
-            val view = binding.coinList.getChildViewHolder(binding.coinList.getChildAt(i)) as CoinUpdateItemViewHolder
-            //Log.d("WalletCoinUpdateFrag", "view: $view")
-            val key = view.textView.text.toString().toBigDecimal()
-            val value: Int = try { view.editText.text.toString().toInt() } catch (e: NumberFormatException) { 0 }
-            wallet.put(key, value)
-            //Log.d("WalletCoinUpdateFrag", "wallet: $wallet")
-        }
-        //Log.d("WalletCoinUpdateFrag", "retrieve wallet end")
-        return wallet
-    }
 }
