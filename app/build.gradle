@@ -49,7 +49,7 @@ dependencies {
     implementation "androidx.recyclerview:recyclerview-selection:$recyclerview_version"
 
     // Payment calculation algorithms
-    implementation files('libs/CostInCoins_v1.0.jar')
+    implementation files('libs/CoinCostCalculator_v1.1.jar')
 
     // Gson
     implementation 'com.google.code.gson:gson:2.8.6'
