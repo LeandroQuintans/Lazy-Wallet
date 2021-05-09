@@ -17,4 +17,7 @@
     <string name="paymentCheckText">Confirm your payment</string>
     <string name="paymentCheckButtonText">Finish payment</string>
     <string name="changeCurrencyMenuText">Change currency</string>
+    <string name="paymentButtonDialogMessage">You don\'t have enough money to execute the payment</string>
+    <string name="paymentButtonDialogTitle">Payment error</string>
+    <string name="ok">Ok</string>
 </resources>

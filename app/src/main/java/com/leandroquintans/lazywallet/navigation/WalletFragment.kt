@@ -1,5 +1,7 @@
 package com.leandroquintans.lazywallet.navigation
 
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.os.Bundle
 import android.util.Log
 import android.view.*
@@ -62,8 +64,23 @@ class WalletFragment : Fragment() {
 
         // Payment click listener
         binding.paymentButton.setOnClickListener {
-            val bundle = bundleOf("cost" to binding.costEditText.text.toString())
-            this.findNavController().navigate(R.id.action_walletFragment_to_paymentListViewFragment, bundle)
+            if (viewModel.walletEntity.value!!.wallet.fullTotal < binding.costEditText.text.toString().toBigDecimal()) {
+                val builder: AlertDialog.Builder? = activity?.let {
+                    AlertDialog.Builder(it)
+                }
+                builder
+                    ?.setMessage(R.string.paymentButtonDialogMessage)
+                    ?.setTitle(R.string.paymentButtonDialogTitle)
+                    ?.setPositiveButton(R.string.ok, DialogInterface.OnClickListener { dialog, _ ->
+                        dialog.dismiss()
+                    })
+                    ?.show()
+            }
+            else {
+                val bundle = bundleOf("cost" to binding.costEditText.text.toString())
+                this.findNavController()
+                    .navigate(R.id.action_walletFragment_to_paymentListViewFragment, bundle)
+            }
         }
 
         // textChangedListeners
