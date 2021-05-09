@@ -1,9 +1,11 @@
 package com.leandroquintans.lazywallet.viewmodels
 
+import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.leandroquintans.lazywallet.db.dao.WalletDao
 import com.leandroquintans.lazywallet.db.entities.WalletEntity
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 
 class WalletCurrencyChooseViewModel(database: WalletDao) : WalletBaseViewModel(database) {
 
@@ -13,10 +15,9 @@ class WalletCurrencyChooseViewModel(database: WalletDao) : WalletBaseViewModel(d
     )
 
     fun changeCurrency(currency: WalletEntity.Currency) {
-        viewModelScope.launch {
+        runBlocking {
             deleteWalletFromDatabase()
             createWalletInDatabase(currency)
-            //_walletEntity.value = getWalletFromDatabase()
         }
     }
 }

@@ -31,12 +31,9 @@
         android:label="Lazy Wallet"
         tools:layout="@layout/fragment_wallet_currency_choose">
         <action
-            android:id="@+id/action_walletCurrencyChooseFragment_to_walletFragment"
-            app:destination="@id/walletFragment" />
-        <action
             android:id="@+id/action_walletCurrencyChooseFragment_to_walletFragmentForced"
             app:destination="@id/walletFragment"
-            app:popUpTo="@id/walletCurrencyChooseFragment"
+            app:popUpTo="@id/walletFragment"
             app:popUpToInclusive="true" />
     </fragment>
     <fragment
@@ -46,7 +43,9 @@
         tools:layout="@layout/fragment_wallet_coin_update">
         <action
             android:id="@+id/action_walletCoinUpdateFragment_to_walletFragment"
-            app:destination="@id/walletFragment" />
+            app:destination="@id/walletFragment"
+            app:popUpTo="@id/walletFragment"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/paymentListViewFragment"

@@ -16,4 +16,5 @@
     <string name="paymentConfirmSelButtonText">Confirm payment</string>
     <string name="paymentCheckText">Confirm your payment</string>
     <string name="paymentCheckButtonText">Finish payment</string>
+    <string name="changeCurrencyMenuText">Change currency</string>
 </resources>
