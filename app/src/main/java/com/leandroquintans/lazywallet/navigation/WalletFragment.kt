@@ -18,6 +18,7 @@ import com.leandroquintans.lazywallet.databinding.FragmentWalletBinding
 import com.leandroquintans.lazywallet.db.AppDatabase
 import com.leandroquintans.lazywallet.viewmodels.WalletBaseViewModelFactory
 import com.leandroquintans.lazywallet.viewmodels.WalletViewModel
+import java.lang.NumberFormatException
 import java.math.BigDecimal
 
 class WalletFragment : Fragment() {
@@ -87,7 +88,12 @@ class WalletFragment : Fragment() {
         // costEditText textChangedListener
         binding.costEditText.addTextChangedListener { // test if it survives configuration changes
             if (it.toString().isNotEmpty()) {
-                binding.paymentButton.isEnabled = it.toString().toBigDecimal() > "0".toBigDecimal()
+                try {
+                    binding.paymentButton.isEnabled =
+                        it.toString().toBigDecimal() > "0".toBigDecimal()
+                } catch (e: NumberFormatException) {
+                    binding.paymentButton.isEnabled = false
+                }
             }
             else {
                 binding.paymentButton.isEnabled = false
