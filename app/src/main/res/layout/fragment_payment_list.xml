@@ -5,6 +5,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".navigation.PaymentListFragment">
 
+    <data>
+        <variable
+            name="paymentListViewModel"
+            type="com.leandroquintans.lazywallet.viewmodels.PaymentListViewModel" />
+    </data>
+
     <RelativeLayout
         android:id="@+id/paymentListRelative"
         android:layout_width="match_parent"
@@ -12,15 +18,26 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/paymentListLabelText"
+            android:id="@+id/paymentCostText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_marginStart="16dp"
             android:layout_marginLeft="16dp"
+            android:layout_marginBottom="12dp"
+            android:text="@{String.format(@string/paymentCostText, paymentListViewModel.costString)}"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/paymentListLabelText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
             android:layout_marginBottom="8dp"
             android:text="@string/paymentListLabelText"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            android:layout_below="@id/paymentCostText"/>
 
         <HorizontalScrollView
             android:id="@+id/paymentHorizontalScrollView"

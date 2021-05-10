@@ -3,6 +3,7 @@ package com.leandroquintans.lazywallet.viewmodels
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Transformations
 import androidx.lifecycle.viewModelScope
 import coincost.CoinCost
 import coincost.Wallet
@@ -12,12 +13,16 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.math.BigDecimal
 
-class PaymentListViewModel(database: WalletDao, private val cost: BigDecimal) : WalletBaseViewModel(database) {
+class PaymentListViewModel(database: WalletDao, val cost: BigDecimal) : WalletBaseViewModel(database) {
     var payments = emptyList<Wallet>()
 
     private val _selectedPayment = MutableLiveData<Int?>()
     val selectedPayment: LiveData<Int?>
         get() = _selectedPayment
+
+    val costString = Transformations.map(walletEntity) {
+        it?.currency?.formatWalletAmount(payments[0].fullTotal)
+    }
 
     private suspend fun calculatePayments(): List<Wallet> {
         with(Dispatchers.IO) {

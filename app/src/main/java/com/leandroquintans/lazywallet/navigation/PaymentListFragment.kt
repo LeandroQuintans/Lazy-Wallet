@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -45,6 +46,7 @@ class PaymentListFragment : Fragment() {
 
         binding.lifecycleOwner = this
         viewModel = ViewModelProvider(this, viewModelFactory).get(PaymentListViewModel::class.java)
+        binding.paymentListViewModel = viewModel
 
         // RecyclerView stuff start
         manager = GridLayoutManager(activity, 1, GridLayoutManager.VERTICAL, false)
@@ -101,7 +103,10 @@ class PaymentListFragment : Fragment() {
         return binding.root
     }
 
-    @SuppressLint("ResourceType")
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+    }
+
     private fun setUpObservers() {
         // payments update observer
         viewModel.walletEntity.observe(viewLifecycleOwner, {
@@ -110,6 +115,9 @@ class PaymentListFragment : Fragment() {
             adapter.coinValues = viewModel.walletEntity.value?.wallet?.descendingKeySet()?.toList()
             adapter.payments = viewModel.payments
             numCols = adapter.coinValues?.size ?: 0
+
+            if (viewModel.payments[0].fullTotal > viewModel.cost)
+                Toast.makeText(context, R.string.exactCostPaymentNotPossible, Toast.LENGTH_LONG).show()
         })
 
         adapter.tracker?.addObserver(

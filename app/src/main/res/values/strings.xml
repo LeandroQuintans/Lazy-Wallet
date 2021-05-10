@@ -20,4 +20,6 @@
     <string name="paymentButtonDialogMessage">You don\'t have enough money to execute the payment</string>
     <string name="paymentButtonDialogTitle">Payment error</string>
     <string name="ok">Ok</string>
+    <string name="exactCostPaymentNotPossible">Can\'t calculate exact cost, calculating for closest cost possible with current coins</string>
+    <string name="paymentCostText">Payments calculated for %1$s</string>
 </resources>
