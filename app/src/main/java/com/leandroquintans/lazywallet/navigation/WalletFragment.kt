@@ -24,6 +24,7 @@ import java.math.BigDecimal
 class WalletFragment : Fragment() {
     private lateinit var binding: FragmentWalletBinding
     private lateinit var viewModel: WalletViewModel
+    private var currencyRegex: Regex? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -53,6 +54,7 @@ class WalletFragment : Fragment() {
         viewModel.walletEntity.observe(viewLifecycleOwner, Observer {
             if (it == null)
                 this.findNavController().navigate(R.id.action_walletFragment_to_walletCurrencyChooseFragmentForced)
+            currencyRegex = viewModel.walletEntity.value?.currency?.regexPattern?.let { it1 -> Regex(it1) }
         })
     }
 
@@ -88,10 +90,15 @@ class WalletFragment : Fragment() {
         // costEditText textChangedListener
         binding.costEditText.addTextChangedListener { // test if it survives configuration changes
             if (it.toString().isNotEmpty()) {
-                try {
-                    binding.paymentButton.isEnabled =
-                        it.toString().toBigDecimal() > "0".toBigDecimal()
-                } catch (e: NumberFormatException) {
+                if (currencyRegex?.let { it1 -> it.toString().matches(it1) } == true) {
+                    try {
+                        binding.paymentButton.isEnabled =
+                            it.toString().toBigDecimal() > "0".toBigDecimal()
+                    } catch (e: NumberFormatException) {
+                        binding.paymentButton.isEnabled = false
+                    }
+                }
+                else {
                     binding.paymentButton.isEnabled = false
                 }
             }
